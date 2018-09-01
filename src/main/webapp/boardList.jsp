@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ page import = "java.sql.*" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE>
 <html>
 <body>
 	<table border="1" style="width:600px">
-		<caption>°Ô½ÃÆÇ</caption>
+		<caption>ê²Œì‹œíŒ</caption>
 		<colgroup>
 			<col width='8%' />
 			<col width='*%' />
@@ -13,10 +13,10 @@
 		</colgroup>
 		<thead>
 			<tr>
-				<th>¹øÈ£</th> 
-				<th>Á¦¸ñ</th>
-				<th>µî·ÏÀÚ</th>
-				<th>µî·ÏÀÏ</th>
+				<th>ë²ˆí˜¸</th> 
+				<th>ì œëª©</th>
+				<th>ë“±ë¡ìž</th>
+				<th>ë“±ë¡ì¼</th>
 			</tr>
 		</thead>
 		<tbody>
