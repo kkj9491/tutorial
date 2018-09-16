@@ -21,15 +21,15 @@
 		</thead>
 		<tbody>
 <%
-	Class.forName("oracle.jdbc.driver.OracleDriver");
-	String url = "jdbc:oracle:thin:@localhost:1521:xe/board";
-	String id = "ORA_USER"; 
+	Class.forName("com.mysql.jdbc.Driver");
+	String url = "jdbc:mysql://localhost/board";
+	String id = "board"; 
 	String pw = "1111";
 	Connection conn=DriverManager.getConnection(url,id,pw);
 	Statement stmt=conn.createStatement();
 	
-	String query="SELECT BRDNO, BRDTITLE, BRDWRITER, TO_CHAR(BRDDATE,'yyyy-mm-dd') BRDDATE " + 
-				 "  FROM TBL_BOARD";
+	String query="SELECT BRDNO, BRDTITLE, BRDWRITER, DATE_FORMAT(BRDDATE, '%Y-%M-%D') BRDDATE" + 
+				 "FROM TBL_BOARD";	
 	ResultSet rs = stmt.executeQuery(query);
 	
 	while(rs.next()){
