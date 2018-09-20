@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import gu.common.PageVO;
@@ -26,67 +25,55 @@ public class board2Ctr {
 		List<?> listview = boardSvc.selectBoardList(pageVO);
 		
 		modelMap.addAttribute("listview", listview);
-		
+		modelMap.addAttribute("pageVO", pageVO);
 		return "board2/boardList";
 	}
 	
-	// 글 쓰기
-	@RequestMapping(value = "/board1Form")
-	public String boardForm() throws Exception {
-		
-		return "board1/boardForm";		
-	}
-	
-	@RequestMapping(value = "/board1Save")
-	public String boardSave(@ModelAttribute boardVO boardInfo) throws Exception {
-		
-		boardSvc.insertBoard(boardInfo);
-		
-		return "redirect:/board1List";
-	}
-	
-	// 글 수정
-	@RequestMapping(value = "/board1Update")
-	public String boardUpdate(HttpServletRequest request, ModelMap modelMap) throws Exception {
-		
+	// 글 쓰기 & 글수정
+	@RequestMapping(value = "/board2Form")
+	public String boardForm(HttpServletRequest request, ModelMap modelMap) throws Exception {
 		String brdno = request.getParameter("brdno");
+		if(brdno!=null) {
+			boardVO boardInfo = boardSvc.selectBoardOne(brdno);
+			
+			modelMap.addAttribute("boardInfo", boardInfo);
+		}
 		
-		boardVO boardInfo = boardSvc.selectBoardOne(brdno);
-		
-		modelMap.addAttribute("boardInfo", boardInfo);
-		
-		return "board1/boardUpdate";
+		return "board2/boardForm";		
 	}
 	
-	@RequestMapping(value = "/board1UpdateSave")
-	public String board1UpdateSave(@ModelAttribute boardVO boardInfo) throws Exception {
+	@RequestMapping(value = "/board2Save")
+	public String boardSave(boardVO boardInfo) throws Exception {
 		
-		boardSvc.updateBoard(boardInfo);
+		if(boardInfo.getBrdno()==null || "".equals(boardInfo.getBrdno()))
+			boardSvc.insertBoard(boardInfo);
+		else boardSvc.updateBoard(boardInfo);;
 		
 		return "redirect:/board1List";
-	}
-	
+	}	
+		
 	// 글 읽기
-	@RequestMapping(value = "/board1Read")
+	@RequestMapping(value = "/board2Read")
 	public String boardRead(HttpServletRequest request, ModelMap modelMap) throws Exception {
 		
 		String brdno = request.getParameter("brdno");
 		
+		boardSvc.updateBoard2Read(brdno);
 		boardVO boardInfo = boardSvc.selectBoardOne(brdno);
 		
 		modelMap.addAttribute("boardInfo", boardInfo);
 		
-		return "board1/boardRead";
+		return "board2/boardRead";
 	}
 	
 	// 글 삭제
-	@RequestMapping(value = "/board1Delete")
+	@RequestMapping(value = "/board2Delete")
 	public String boardDelete(HttpServletRequest request) throws Exception {
 		
 		String brdno = request.getParameter("brdno");
 		
 		boardSvc.deleteBoardOne(brdno);
 		
-		return "redirect:/board1List";
+		return "redirect:/board2List";
 	}
 }

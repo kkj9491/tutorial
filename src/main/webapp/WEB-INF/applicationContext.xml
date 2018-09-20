@@ -28,8 +28,8 @@
           p:minIdle="3"
           p:maxWait="30000"
           p:removeAbandoned="true"
-          p:removeAbandonedTimeout="30"
-          p:validationQuery="SELECT 1"/>
+          p:removeAbandonedTimeout="30"/>
+          <!-- p:validationQuery="SELECT 1" -->
 
 	<!-- SqlSession setup for MyBatis Database Layer -->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
